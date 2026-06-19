@@ -61,7 +61,11 @@ function Login({ role = "admin" }) {
       auth.saveSession(data)
       navigate(config.redirect)
     } catch (err) {
-      setError(err.response?.data?.detail || "Unable to log in")
+      const apiMessage = err.response?.data?.detail
+      const networkMessage = err.response
+        ? null
+        : `${err.message || "Network error"} (${api.defaults.baseURL}/login/)`
+      setError(apiMessage || networkMessage || "Unable to log in")
     } finally {
       setLoading(false)
     }
