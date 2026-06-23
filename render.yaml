@@ -12,9 +12,9 @@ services:
       - key: CORS_ALLOW_ALL_ORIGINS
         value: "False"
       - key: CORS_ALLOWED_ORIGINS
-        value: https://student-management-system-1.onrender.com
+        value: https://student_management_system-1.onrender.com,https://student-management-system-1.onrender.com
       - key: CSRF_TRUSTED_ORIGINS
-        value: https://student-manegment-system-c380.onrender.com,https://student-management-system-1.onrender.com
+        value: https://student-manegment-system-c380.onrender.com,https://student_management_system-1.onrender.com,https://student-management-system-1.onrender.com
       - key: SECURE_SSL_REDIRECT
         value: "True"
       - key: SESSION_COOKIE_SECURE

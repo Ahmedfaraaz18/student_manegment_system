@@ -3,8 +3,6 @@ import { useEffect, useState } from "react"
 
 import api, { auth } from "../services/api"
 
-const productionLoginUrl = "https://student-manegment-system-c380.onrender.com/api/login/"
-
 const roleConfig = {
   super_admin: {
     title: "Super admin login",
@@ -54,8 +52,7 @@ function Login({ role = "admin" }) {
 
     try {
       auth.logout()
-      const loginUrl = import.meta.env.DEV ? "/login/" : productionLoginUrl
-      const { data } = await api.post(loginUrl, form)
+      const { data } = await auth.login(form)
       if (data.role !== role) {
         auth.logout()
         setError(`This login page is only for ${role} accounts.`)
@@ -67,7 +64,7 @@ function Login({ role = "admin" }) {
       const apiMessage = err.response?.data?.detail
       const networkMessage = err.response
         ? null
-        : `${err.message || "Network error"} (${import.meta.env.DEV ? `${api.defaults.baseURL}/login/` : productionLoginUrl})`
+        : `${err.message || "Network error"} (${api.getUri({ url: "/login/" })})`
       setError(apiMessage || networkMessage || "Unable to log in")
     } finally {
       setLoading(false)
